@@ -20,13 +20,18 @@ def main(args):
         if opt in ('-c','--central'):
             c=arg
         
-    if 'c' not in locals() or 'l' not in locals():
-        print('please enter both central letter and other letters')
-        exit()
+    if 'c' not in locals():
+        c=input('Please enter central letter: ')
     
-    print('central letter is: ' + c)
-    print('other letters are: ' + l)
-
+    if 'l' not in locals():
+        l=input('Please enter other letters: ')    
+        
+    print('Central letter is: ' + c)
+    print('Other letters are: ' + l)
+    
+    c=c.lower()
+    l=l.lower()
+    
     lowers=list(string.ascii_lowercase)    
 
     l_list=list(l)
