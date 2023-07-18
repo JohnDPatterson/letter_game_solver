@@ -46,6 +46,7 @@ def main(args):
     word_list = words.words()
     count=0
     out_list=[]
+    pangrams=[]
     for j in word_list:
        
         w=list(str.lower(j))
@@ -58,13 +59,17 @@ def main(args):
             continue
         elif len(set(w).intersection(other_letters)) > 0:
             continue
+        if set(l_list).issubset(w):
+            pangrams.append(j)
         
         out_list.append(j+'\n')
     
     with open(fname, 'w') as f:
         for j in out_list:
             f.write(j)
-        
+    print('Pangrams Are: ')
+    for j in pangrams:
+        print(j)    
     
 if __name__ == '__main__':
     main(sys.argv[1:]) #Send list of arguments
