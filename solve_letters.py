@@ -1,6 +1,6 @@
 import sys
 import getopt
-from nltk.corpus import words
+#from nltk.corpus import words
 from datetime import datetime
 import os
 import string
@@ -43,15 +43,15 @@ def main(args):
     
     fname='words_'+ datetime.today().strftime('%Y%m%d')+'.txt' 
     
-    word_list = words.words()
-    count=0
+    with open('words_alpha.txt','r') as f:
+        word_list=f.read().splitlines()
+    
+   
     out_list=[]
     pangrams=[]
     for j in word_list:
        
         w=list(str.lower(j))
-        
-        count+=1
         
         if c not in w:
             continue
