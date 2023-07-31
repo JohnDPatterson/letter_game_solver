@@ -152,7 +152,7 @@ def calc_remaining_words(l_list,n,k_list,dupe_dict,cont):
             print('No file from today. Please start new game')
             exit()
     else:
-        fname='wordle_alpha.txt'
+        fname='wordle_possibles.txt'
     
     with open(fname,'r') as f:
         word_list=f.read().splitlines()
