@@ -10,6 +10,8 @@ from joblib import Parallel,delayed
 import numpy as np
 from itertools import compress
 import copy
+import time
+
 
 def main(args):
     opts, args = getopt.getopt(args, 'cl:k:h', ['continue','e_letters=','k_letters', 'help'])
@@ -104,15 +106,28 @@ def main(args):
     if out_next=='Y':
         next_word=[]
         
-        if len(out_list)>300:
+        t0 = time.time()
+        find_next_word(out_list[0],k_list)
+        t1 = time.time()
+
+        total = t1-t0
+
+        if total*len(out_list)>600:
             print('Too many remaining words, optimizing using letters')
             letter_count=count_letters(out_list)
             next_word=find_next_word_letters(letter_count, out_list)
-        elif len(out_list)==1:
-            print('Only one word remaining: ' + out_list[0])
+        elif len(out_list)<=2:
+            print('Only word(s) remaining: ')
+            for i in out_list:
+                print(i)
         else:
             next_word=find_next_word(out_list,k_list)
         
+        best_words=list(set(next_word).intersection(set(out_list)))
+        
+        if best_words:
+            print('Words that are both possible and recommended are: ')
+            print(*best_words)
         if next_word:
             print('Recommended words are: ')
             print(*next_word)
