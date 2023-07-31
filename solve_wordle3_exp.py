@@ -106,21 +106,23 @@ def main(args):
     if out_next=='Y':
         next_word=[]
         
-        t0 = time.time()
-        find_next_word(out_list[0],k_list)
-        t1 = time.time()
-
-        total = t1-t0
+        if len(out_list)>2:
+            t0 = time.time()
+            find_next_word(out_list[0],k_list)
+            t1 = time.time()
+    
+            total = t1-t0
+        else:
+            total=0
+            print('Only word(s) remaining: ')
+            for i in out_list:
+                print(i)
 
         if total*len(out_list)>600:
             print('Too many remaining words, optimizing using letters')
             letter_count=count_letters(out_list)
             next_word=find_next_word_letters(letter_count, out_list)
-        elif len(out_list)<=2:
-            print('Only word(s) remaining: ')
-            for i in out_list:
-                print(i)
-        else:
+        elif len(out_list)>2:
             next_word=find_next_word(out_list,k_list)
         
         best_words=list(set(next_word).intersection(set(out_list)))
