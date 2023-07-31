@@ -102,20 +102,16 @@ def main(args):
         print(*out_list) 
         
     if out_next=='Y':
-        # next_word=[]
-        # n_all=sum(n,[])
-        # all_info=n_all+l_list
-       
-        # if not all_info:
-        #     print('Recommended first word is "SLATE"')
+        next_word=[]
         
-        # elif len(out_list)>300:
-        #     print('Too many remaining words, optimizing using letters')
-        #     letter_count=count_letters(out_list)
-        #     next_word=find_next_word_letters(letter_count, out_list)
-        # else:
-        #     next_word=find_next_word(out_list,k_list)
-        next_word=find_next_word(out_list,k_list)
+        if len(out_list)>300:
+            print('Too many remaining words, optimizing using letters')
+            letter_count=count_letters(out_list)
+            next_word=find_next_word_letters(letter_count, out_list)
+        elif len(out_list)==1:
+            print('Only one word remaining: ' + out_list[0])
+        else:
+            next_word=find_next_word(out_list,k_list)
         
         if next_word:
             print('Recommended words are: ')
@@ -156,7 +152,7 @@ def calc_remaining_words(l_list,n,k_list,dupe_dict,cont):
             print('No file from today. Please start new game')
             exit()
     else:
-        fname='words_alpha.txt'
+        fname='wordle_alpha.txt'
     
     with open(fname,'r') as f:
         word_list=f.read().splitlines()
@@ -235,7 +231,7 @@ def create_dupe_dict(n):
 
 def find_next_word(remaining_words,k_list):
         
-    with open('words_alpha.txt','r') as f:
+    with open('wordle_alpha.txt','r') as f:
         all_words=f.read().splitlines()
     
     v_words=[]
