@@ -118,7 +118,7 @@ def main(args):
             for i in out_list:
                 print(i)
 
-        if total*len(out_list)>600:
+        if total*len(out_list)>100000:
             print('Too many remaining words, optimizing using letters')
             letter_count=count_letters(out_list)
             next_word=find_next_word_letters(letter_count, out_list)
@@ -258,7 +258,9 @@ def find_next_word(remaining_words,k_list):
     
     print('Tasks to do: ' + str(len(v_words)))
     
-    candidate,outcome=zip(*Parallel(n_jobs=-1,verbose=10)(delayed(score_word_parallel)(word,remaining_words,k_list)\
+    cores=int(input('How many CPUs? (For max CPUs, enter -1)'))
+    
+    candidate,outcome=zip(*Parallel(n_jobs=cores,verbose=10)(delayed(score_word_parallel)(word,remaining_words,k_list)\
                                   for word in v_words))
     # candidate=[]
     # outcome=[]
